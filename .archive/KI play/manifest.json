@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "KI Play new tab",
+  "version": "1.1",
+  "description": "Injects links to open KI Play videos on ki.instructure.com in new tabs.",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://ki.instructure.com/*",
+        "https://*.kaltura.nordu.net/*"
+      ],
+      "all_frames": true,
+      "js": ["content.js"]
+    }
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png" }
+}
