@@ -3,6 +3,19 @@ const LINKED = "_link_added_"
 /**************************************************
  * Functions for adding links
  *************************************************/
+// Insert link at <video>
+function add_video_tag_link(nd) {
+    if(!nd.classList.contains(LINKED)) {
+        const a = document.createElement('a')
+        a.href = nd.src
+        a.target = "__blank"
+        a.innerHTML = 'Open in new tab'
+        a.style = 'font-size: 12pt; line-height: 10px; display: block;'
+        nd.parentElement.appendChild(a)
+        nd.classList.add(LINKED)
+    }
+}
+
 // Insert link at inline iframe videos
 function add_iframe_video_link(nd) {
     if(!nd.classList.contains(LINKED)) {
@@ -107,3 +120,13 @@ if(document.querySelector('div#mediaContainer.playlist-content')) {
       subtree: true
     })
 }
+
+// Continue to observe document for all <video> elements
+const video_observer = new MutationObserver((mut, obs) => {
+    document.querySelectorAll(`video:not(.${LINKED})`).forEach(nd => add_video_tag_link(nd))
+})
+
+video_observer.observe(document, {
+    childList: true,
+    subtree: true
+})
